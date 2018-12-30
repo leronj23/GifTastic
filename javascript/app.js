@@ -56,6 +56,9 @@ $(document).ready(function () {
         queryParams.q = searchInputValue;
         //queryParams.q = $("#search-input").val().trim();
 
+        // Set limit for amount of gifs received 
+        queryParams.limit = 10;
+
         return queryURL + $.param(queryParams);
     }
 
@@ -76,16 +79,28 @@ $(document).ready(function () {
     // Takes API data (JSON/object) and turns it into elements on the page
     function updatePage(gifData) {
 
+        console.log(gifData);
+
         // Loop through and build elements for the defined number of gifs
         for (let i = 0; i < gifData.data.length; i++) {
 
-            let gifImage = $("<img>");
-            gifImage.addClass("gif-image");
-            gifImage.attr("src", gifData.data[i].images.downsized_still.url);
-            gifImage.attr("data-still", gifData.data[i].images.downsized_still.url);
-            gifImage.attr("data-animate", gifData.data[i].images.downsized.url);
-            gifImage.attr("data-state", "still");
-            $("#gifs").append(gifImage);
+            let a = $("<div class='card' style='width: 200px'>" +
+                "<img class='card-img-top' src=" + gifData.data[i].images.downsized_still.url + " alt='gif image'>" +
+                "<div class='card-body'>" +
+                "<h4 class='card-title'>Rated: " + gifData.data[i].rating + "</h4>" +
+                "</div>");
+            a.attr("data-still", gifData.data[i].images.downsized_still.url);
+            a.attr("data-animate", gifData.data[i].images.downsized.url);
+            a.attr("data-state", "still");
+            $("#gifs").append(a);
+
+            // let gifImage = $("<img>");
+            // gifImage.addClass("gif-image");
+            // gifImage.attr("src", gifData.data[i].images.downsized_still.url);
+            // gifImage.attr("data-still", gifData.data[i].images.downsized_still.url);
+            // gifImage.attr("data-animate", gifData.data[i].images.downsized.url);
+            // gifImage.attr("data-state", "still");
+            // $("#gifs").append(gifImage);
         }
     }
 
@@ -99,7 +114,7 @@ $(document).ready(function () {
 
     // Button for each gif to animate or stop animating
     // When using $(document).ready. $(document).on('click' needs to be used for click
-    $(document).on('click', '.gif-image', function (e) {
+    $(document).on('click', '.card-img-top', function (e) {
 
         // Get the data state for each gif
         let state = $(this).attr("data-state");

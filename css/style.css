@@ -2,9 +2,10 @@
     margin: 5px;
 }
 
-.gif-image {
+.card {
 
     margin: 20px;
     width: 220px;
     height: auto;
+    float: left;
 }
