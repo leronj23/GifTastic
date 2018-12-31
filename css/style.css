@@ -3,12 +3,9 @@
 }
 
 .card-img-top {
-
-    background: green;
     object-fit: cover;
     width: 198px;
     height: 100px;
-    float: left;
 }
 
 .card {
