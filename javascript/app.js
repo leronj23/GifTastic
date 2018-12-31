@@ -2,8 +2,24 @@ $(document).ready(function () {
 
     var topics = [];
 
+    // Enter button pushed
+    $("#search-input").on('keyup', function (e) {
+        if (e.keyCode == 13) {
+
+            // Search Button Clicked
+            searchButtonClicked();
+        }
+    });
+
     // Button to start the gif search
     $("#search-btn").on("click", function (event) {
+
+        // Search Button Clicked
+        searchButtonClicked();
+    });
+
+    // Search Button Clicked
+    function searchButtonClicked() {
 
         // This line allows us to take advantage of the HTML "submit" property
         // This way we can hit enter on the keyboard and it registers the search
@@ -40,7 +56,10 @@ $(document).ready(function () {
             // Load New Gifs
             loadNewGifs(queryURL)
         }
-    });
+    }
+
+
+
 
     // Pulls information from the form and build the query URL
     function buildQueryURL(searchInputValue) {
@@ -55,6 +74,9 @@ $(document).ready(function () {
         // Grab text the user typed into the search input, add to the queryParams object
         queryParams.q = searchInputValue;
         //queryParams.q = $("#search-input").val().trim();
+
+        // Set limit for gifs
+        queryParams.limit = 10;
 
         return queryURL + $.param(queryParams);
     }
@@ -76,8 +98,25 @@ $(document).ready(function () {
     // Takes API data (JSON/object) and turns it into elements on the page
     function updatePage(gifData) {
 
+        console.log(gifData);
+
         // Loop through and build elements for the defined number of gifs
         for (let i = 0; i < gifData.data.length; i++) {
+
+            // let rating = $("<div class='card'>" +
+            //     "<img class='card-img-top' src=" + gifData.data[i].images.downsized_still.url + " alt='Card image cap'>" +
+            //     "<div class='card-body'>" +
+            //     "<h5 class='card-title'>Card title</h5>" +
+            //     "<p class='card-text'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>" + 
+            //     "</div>");
+            //     $("#gifs").append(rating);
+
+
+
+
+            let rating = $("<label>");
+            rating.html("Rated: " + gifData.data[i].rating);
+            $("#gifs").append(rating);
 
             let gifImage = $("<img>");
             gifImage.addClass("gif-image");
