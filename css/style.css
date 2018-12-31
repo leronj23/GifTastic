@@ -2,10 +2,15 @@
     margin: 5px;
 }
 
-.card {
+.card-img-top {
 
-    margin: 20px;
-    width: 220px;
-    height: auto;
+    background: green;
+    object-fit: cover;
+    width: 198px;
+    height: 100px;
+    float: left;
+}
+
+.card {
     float: left;
 }
