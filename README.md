@@ -1,5 +1,4 @@
 # GifTastic
-Assignment_GifTastic
 
 # Link to deployed site
 https://lalatw.github.io/GifTastic/
