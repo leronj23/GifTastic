@@ -1,7 +1,7 @@
 # GifTastic
 
 # Link to deployed site
-https://lalatw.github.io/GifTastic/
+https://leronj23.github.io/GifTastic/
 
 
 # Technology used
