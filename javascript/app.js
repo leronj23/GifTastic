@@ -1,6 +1,24 @@
 $(document).ready(function () {
 
-    var topics = [];
+    // All default and newly added topics array
+    var topics = ["cars", "planes", "babies", "tables", "running", "swimming", "Iron Man", "cough", "pizza", "shrimp"];
+
+    // Load default topics
+    for (var i = 0; i < topics.length; i++) {
+
+        // Add default topics button to top of the page
+        addButton(topics[i]);
+    }
+
+    // Load Cars on screen load
+    // Build the query URL for the ajax request to the Giphy API
+    let queryURL = buildQueryURL(topics[0])
+
+    // Load New Gifs
+    loadNewGifs(queryURL)
+
+
+    
 
     // Enter button pushed
     $("#search-input").on('keyup', function (e) {
@@ -59,8 +77,6 @@ $(document).ready(function () {
     }
 
 
-
-
     // Pulls information from the form and build the query URL
     function buildQueryURL(searchInputValue) {
 
@@ -75,8 +91,8 @@ $(document).ready(function () {
         queryParams.q = searchInputValue;
         //queryParams.q = $("#search-input").val().trim();
 
-        // Set limit for gifs
-        queryParams.limit = 10;
+        // Set limit for amount of gifs received 
+        queryParams.limit = 12;
 
         return queryURL + $.param(queryParams);
     }
@@ -103,28 +119,23 @@ $(document).ready(function () {
         // Loop through and build elements for the defined number of gifs
         for (let i = 0; i < gifData.data.length; i++) {
 
-            // let rating = $("<div class='card'>" +
-            //     "<img class='card-img-top' src=" + gifData.data[i].images.downsized_still.url + " alt='Card image cap'>" +
-            //     "<div class='card-body'>" +
-            //     "<h5 class='card-title'>Card title</h5>" +
-            //     "<p class='card-text'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>" + 
-            //     "</div>");
-            //     $("#gifs").append(rating);
+            let a = $("<div class='card' style='margin: 20px; width: 200px; height: 175px'>" +
+                "<img class='card-img-top' src=" + gifData.data[i].images.downsized_still.url + " alt='gif image'" +
+                " data-still=" + gifData.data[i].images.downsized_still.url +
+                " data-animate=" + gifData.data[i].images.downsized.url +
+                " data-state= 'still'>" +
+                "<div class='card-body'>" +
+                "<h4 class='card-title'>Rated: " + gifData.data[i].rating + "</h4>" +
+                "</div>");
+            $("#gifs").append(a);
 
-
-
-
-            let rating = $("<label>");
-            rating.html("Rated: " + gifData.data[i].rating);
-            $("#gifs").append(rating);
-
-            let gifImage = $("<img>");
-            gifImage.addClass("gif-image");
-            gifImage.attr("src", gifData.data[i].images.downsized_still.url);
-            gifImage.attr("data-still", gifData.data[i].images.downsized_still.url);
-            gifImage.attr("data-animate", gifData.data[i].images.downsized.url);
-            gifImage.attr("data-state", "still");
-            $("#gifs").append(gifImage);
+            // gifImage = $("<img>");
+            // gifImage.addClass("gif-image");
+            // gifImage.attr("src", gifData.data[i].images.downsized_still.url);
+            // gifImage.attr("data-still", gifData.data[i].images.downsized_still.url);
+            // gifImage.attr("data-animate", gifData.data[i].images.downsized.url);
+            // gifImage.attr("data-state", "still");
+            // $("#gifs").append(gifImage);
         }
     }
 
@@ -138,7 +149,9 @@ $(document).ready(function () {
 
     // Button for each gif to animate or stop animating
     // When using $(document).ready. $(document).on('click' needs to be used for click
-    $(document).on('click', '.gif-image', function (e) {
+    $(document).on('click', '.card-img-top', function (e) {
+
+        console.log("data", $(this).attr("data-state"))
 
         // Get the data state for each gif
         let state = $(this).attr("data-state");
