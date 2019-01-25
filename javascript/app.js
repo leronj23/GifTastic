@@ -17,9 +17,6 @@ $(document).ready(function () {
     // Load New Gifs
     loadNewGifs(queryURL)
 
-
-    
-
     // Enter button pushed
     $("#search-input").on('keyup', function (e) {
         if (e.keyCode == 13) {
@@ -32,8 +29,10 @@ $(document).ready(function () {
     // Button to start the gif search
     $("#search-btn").on("click", function (event) {
 
-        // Search Button Clicked
-        searchButtonClicked();
+        if ($("#search-input").val() != "") {
+            // Search Button Clicked
+            searchButtonClicked();
+        }
     });
 
     // Search Button Clicked
