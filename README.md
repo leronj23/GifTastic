@@ -1,5 +1,9 @@
 # GifTastic
 
+Search for gifs. Just imagine what you will find. Place a name in the search field and watch what happens. 
+
+Enjoy and I hope you like it.
+
 # Link to deployed site
 https://leronj23.github.io/GifTastic/
 
